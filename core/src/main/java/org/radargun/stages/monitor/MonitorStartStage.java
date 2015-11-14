@@ -48,7 +48,8 @@ public class MonitorStartStage extends AbstractDistStage {
       monitor.addMonitor(new CpuUsageMonitor(jmxConnectionProvider, slaveState.getTimeline()));
       monitor.addMonitor(new MemoryUsageMonitor(jmxConnectionProvider, slaveState.getTimeline()));
       monitor.addMonitor(new GcMonitor(jmxConnectionProvider, slaveState.getTimeline()));
-      monitor.addMonitor(new OpenFilesMonitor(jmxConnectionProvider, slaveState.getTimeline()));
+      // n/a on Win
+      // monitor.addMonitor(new OpenFilesMonitor(jmxConnectionProvider, slaveState.getTimeline()));
       if (interfaceName != null) {
          monitor.addMonitor(NetworkBytesMonitor.createReceiveMonitor(interfaceName, slaveState.getTimeline()));
          monitor.addMonitor(NetworkBytesMonitor.createTransmitMonitor(interfaceName, slaveState.getTimeline()));

@@ -1,0 +1,51 @@
+    <!-- This test shows example comparison between three products -->
+<benchmark xmlns="urn:radargun:benchmark:2.2">
+   <master bindAddress="${master.address:127.0.0.1}" port="${master.port:2103}"/>
+
+   <clusters>
+      <cluster size="2"/>
+   </clusters>
+
+   <configurations>
+      <config name="Hazelcast">
+         <setup plugin="hazelcast36ea">
+            <hazelcast xmlns="urn:radargun:plugins:hazelcast36ea:2.2" file="dist-sync.xml"/>
+         </setup>
+      </config>
+      <config name="Hazelcast 3">
+         <setup plugin="hazelcast3">
+            <hazelcast xmlns="urn:radargun:plugins:hazelcast3:2.2" file="dist-sync.xml"/>
+         </setup>
+      </config>
+   </configurations>
+
+   <scenario>
+      <service-start />
+      <jvm-monitor-start />
+
+      <load-data num-entries="5000"/>
+      <basic-operations-test test-name="warmup" num-requests="100000" num-threads-per-node="5">
+         <key-selector>
+            <concurrent-keys total-entries="5000" />
+         </key-selector>
+      </basic-operations-test>
+
+      <load-data num-entries="10000"/>
+
+      <basic-operations-test test-name="stress-test"
+                             duration="1m" num-threads-per-node="50">
+         <key-selector>
+            <concurrent-keys total-entries="10000"/>
+         </key-selector>
+      </basic-operations-test>
+
+   </scenario>
+   <!-- Ignore leaked threads as Coherence leaks quite often -->
+   <cleanup check-threads="false" />
+
+   <reports>
+      <!-- reporter type="csv" / -->
+      <reporter type="html" />
+   </reports>
+
+</benchmark>
