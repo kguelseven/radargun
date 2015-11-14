@@ -39,7 +39,7 @@
       <plugins.jdg/>
       <plugins.coherence/>
       <plugins.process />
-      <plugins.spymemcached />
+      <!--  plugins.spymemcached / -->
       <reporter.default />
       <reporter.perfrepo />
       <extension.example/>
@@ -158,9 +158,10 @@
          <modules>
             <module>plugins/hazelcast2</module>
             <module>plugins/hazelcast3</module>
+            <module>plugins/hazelcast36ea</module>
          </modules>
          <properties>
-            <plugins.hazelcast>hazelcast2,hazelcast3</plugins.hazelcast>
+            <plugins.hazelcast>hazelcast2,hazelcast3,hazelcast36ea</plugins.hazelcast>
          </properties>
       </profile>
       <profile>
@@ -295,6 +296,7 @@
             <plugins.process>process</plugins.process>
          </properties>
       </profile>
+      <!-- 
       <profile>
          <id>spymemcached</id>
          <activation>
@@ -309,6 +311,7 @@
             <plugins.spymemcached>spymemcached</plugins.spymemcached>
          </properties>
       </profile>
+       -->
       <profile>
          <id>jcache</id>
          <!-- TODO trigger compilation only when a module which depends on JCache plugin is compiled -->
@@ -482,7 +485,7 @@
                         </path>
 
                         <echo message="Packaging plugins: " />
-                        <ac:for list="${plugins.chm},${plugins.ehcache},${plugins.hazelcast},${plugins.jbosscache},${plugins.jgroups},${plugins.infinispan},${plugins.jdk18},${plugins.jdg},${plugins.coherence},${plugins.process},${plugins.spymemcached}" param="plugin" xmlns:ac="antlib:net.sf.antcontrib">
+                        <ac:for list="${plugins.chm},${plugins.ehcache},${plugins.hazelcast},${plugins.jbosscache},${plugins.jgroups},${plugins.infinispan},${plugins.jdk18},${plugins.jdg},${plugins.coherence},${plugins.process}" param="plugin" xmlns:ac="antlib:net.sf.antcontrib">
                            <sequential>
                               <echo message="Packaging plugin @{plugin}..." />
                               <ac:if>
